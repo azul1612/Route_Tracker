@@ -12,6 +12,8 @@ import com.example.routetracker.presentation.estaciones.EstacionesScreen
 import com.example.routetracker.presentation.home.HomeScreen
 import com.example.routetracker.presentation.login.LoginScreen
 import com.google.firebase.auth.FirebaseAuth
+import com.example.routetracker.presentation.perfil.PerfilScreen
+
 
 @Composable
 fun AppNavigation() {
@@ -55,14 +57,22 @@ fun AppNavigation() {
                         popUpTo("estaciones/{lineaId}") { inclusive = true }
                     }
                 },
-                onSalir = {
-                    FirebaseAuth.getInstance().signOut()
-                    navController.navigate("login") { popUpTo(0) { inclusive = true } }
-                },
+                onPerfil = { navController.navigate("perfil") },
                 onVolver = { navController.popBackStack() },
                 onIrInicio = {
                     navController.navigate("home") { popUpTo("home") { inclusive = true } }
                 }
+            )
+        }
+
+        composable("perfil") {
+            PerfilScreen(
+                onCerrarSesion = {
+                    navController.navigate("login") {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
+                onVolver = { navController.popBackStack() }
             )
         }
 
@@ -80,9 +90,7 @@ fun AppNavigation() {
                 lineaId = lineaId,
                 nombreEstacion = estacionId.replace("_", " ").replaceFirstChar { it.uppercase() },
                 direcciones = listOf("Dirección 1", "Dirección 2"),
-                onSalir = {
-                    navController.navigate("home") { popUpTo(0) { inclusive = true } }
-                },
+                onPerfil = { navController.navigate("perfil") },
                 onIrInicio = {
                     navController.navigate("home") { popUpTo("home") { inclusive = true } }
                 },

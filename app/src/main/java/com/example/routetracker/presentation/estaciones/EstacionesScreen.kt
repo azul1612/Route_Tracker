@@ -40,7 +40,7 @@ fun EstacionesScreen(
     onEstacionClick: (String) -> Unit = {},
     onCambiarLinea: (String) -> Unit = {},
     onVolver: () -> Unit = {},
-    onSalir: () -> Unit = {},
+    onPerfil: () -> Unit = {},
     onIrInicio: () -> Unit = {}
 ) {
     val viewModel: EstacionesViewModel = viewModel(
@@ -55,7 +55,7 @@ fun EstacionesScreen(
 
         // Reemplaza el menú viejo por este:
         MenuSuperior(
-            onSalir = onSalir,
+            onPerfil = onPerfil,
             onInicio = onIrInicio,
             onAtras = onVolver
         )

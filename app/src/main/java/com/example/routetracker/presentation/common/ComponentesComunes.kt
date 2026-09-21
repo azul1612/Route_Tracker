@@ -24,6 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.foundation.shape.CircleShape
 val coloresLinea = mapOf(
     "linea1" to Color(0xFFC1121F), "linea2" to Color(0xFF6A1B9A),
     "linea3" to Color(0xFF9ACD32), "linea4" to Color(0xFF00BCD4),
@@ -32,19 +34,21 @@ val coloresLinea = mapOf(
 )
 
 @Composable
-fun MenuSuperior(onSalir: () -> Unit, onInicio: () -> Unit, onAtras: () -> Unit) {
+fun MenuSuperior(onPerfil: () -> Unit, onInicio: () -> Unit, onAtras: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .windowInsetsPadding(WindowInsets.statusBars)
+            .statusBarsPadding()
             .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        TextButton(onClick = onSalir) {
-            Icon(Icons.Default.ExitToApp, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(Modifier.width(4.dp))
-            Text("Salir")
-        }
+        Icon(
+            Icons.Default.AccountCircle,
+            contentDescription = "Perfil",
+            modifier = Modifier.size(32.dp).clickable { onPerfil() },
+            tint = Color(0xFFC1121F)
+        )
         TextButton(onClick = onInicio) {
             Icon(Icons.Default.Home, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color(0xFFC1121F))
             Spacer(Modifier.width(4.dp))

@@ -31,7 +31,7 @@ fun DetalleEstacionScreen(
     lineaId: String,
     nombreEstacion: String,
     direcciones: List<String>,
-    onSalir: () -> Unit = {},
+    onPerfil: () -> Unit = {},
     onIrInicio: () -> Unit = {},
     onVolver: () -> Unit = {},
     onCambiarLinea: (String) -> Unit = {}
@@ -55,7 +55,7 @@ fun DetalleEstacionScreen(
         return
     }
     Column(modifier = Modifier.fillMaxSize()) {
-        MenuSuperior(onSalir = onSalir, onInicio = onIrInicio, onAtras = onVolver)
+        MenuSuperior(onPerfil = onPerfil, onInicio = onIrInicio, onAtras = onVolver)
         SelectorLineas(lineaActivaId = lineaId, onCambiarLinea = onCambiarLinea)
 
         LazyColumn(
