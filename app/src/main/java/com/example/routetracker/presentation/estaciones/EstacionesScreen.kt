@@ -41,7 +41,8 @@ fun EstacionesScreen(
     onCambiarLinea: (String) -> Unit = {},
     onVolver: () -> Unit = {},
     onPerfil: () -> Unit = {},
-    onIrInicio: () -> Unit = {}
+    onIrInicio: () -> Unit = {},
+    onMapa: (() -> Unit)? = null
 ) {
     val viewModel: EstacionesViewModel = viewModel(
         key = lineaId, // importante: fuerza un ViewModel nuevo si cambia de línea
@@ -57,7 +58,8 @@ fun EstacionesScreen(
         MenuSuperior(
             onPerfil = onPerfil,
             onInicio = onIrInicio,
-            onAtras = onVolver
+            onAtras = onVolver,
+            onMapa = onMapa
         )
 
         // Reemplaza los círculos viejos por este:

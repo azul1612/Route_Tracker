@@ -3,7 +3,6 @@ package com.example.routetracker.presentation.perfil
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,28 +12,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
+import com.example.routetracker.presentation.common.MenuSuperior
 
 @Composable
 fun PerfilScreen(
     onCerrarSesion: () -> Unit,
-    onVolver: () -> Unit
+    onVolver: () -> Unit,
+    onIrInicio: () -> Unit = {},
+    onMapa: (() -> Unit)? = null
 ) {
     val usuarioActual = FirebaseAuth.getInstance().currentUser
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                Icons.Default.ArrowBack,
-                contentDescription = "Atrás",
-                modifier = Modifier.size(24.dp),
-                tint = Color.DarkGray
-            )
-            Spacer(Modifier.width(12.dp))
-            Text("Mi perfil", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-        }
+        MenuSuperior(
+            onPerfil = {},
+            onInicio = onIrInicio,
+            onAtras = onVolver,
+            onMapa = onMapa,
+            perfilActivo = true
+        )
 
         Column(
             modifier = Modifier.fillMaxWidth().padding(24.dp),

@@ -34,7 +34,8 @@ fun DetalleEstacionScreen(
     onPerfil: () -> Unit = {},
     onIrInicio: () -> Unit = {},
     onVolver: () -> Unit = {},
-    onCambiarLinea: (String) -> Unit = {}
+    onCambiarLinea: (String) -> Unit = {},
+    onMapa: (() -> Unit)? = null
 ) {
     val viewModel: DetalleEstacionViewModel = viewModel(
         key = estacionId,
@@ -55,7 +56,7 @@ fun DetalleEstacionScreen(
         return
     }
     Column(modifier = Modifier.fillMaxSize()) {
-        MenuSuperior(onPerfil = onPerfil, onInicio = onIrInicio, onAtras = onVolver)
+        MenuSuperior(onPerfil = onPerfil, onInicio = onIrInicio, onAtras = onVolver, onMapa = onMapa)
         SelectorLineas(lineaActivaId = lineaId, onCambiarLinea = onCambiarLinea)
 
         LazyColumn(

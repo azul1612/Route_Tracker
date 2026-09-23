@@ -11,6 +11,7 @@ import com.example.routetracker.presentation.detalleestacion.DetalleEstacionScre
 import com.example.routetracker.presentation.estaciones.EstacionesScreen
 import com.example.routetracker.presentation.home.HomeScreen
 import com.example.routetracker.presentation.login.LoginScreen
+import com.example.routetracker.presentation.map.MapScreen
 import com.google.firebase.auth.FirebaseAuth
 import com.example.routetracker.presentation.perfil.PerfilScreen
 
@@ -37,7 +38,20 @@ fun AppNavigation() {
             HomeScreen(
                 onLineaClick = { lineaId ->
                     navController.navigate("estaciones/$lineaId")
+                },
+                onMapaClick = {
+                    navController.navigate("mapa") { launchSingleTop = true }
                 }
+            )
+        }
+
+        composable("mapa") {
+            MapScreen(
+                onPerfil = { navController.navigate("perfil") },
+                onIrInicio = {
+                    navController.navigate("home") { popUpTo("home") { inclusive = true } }
+                },
+                onVolver = { navController.popBackStack() }
             )
         }
 
@@ -58,6 +72,7 @@ fun AppNavigation() {
                     }
                 },
                 onPerfil = { navController.navigate("perfil") },
+                onMapa = { navController.navigate("mapa") { launchSingleTop = true } },
                 onVolver = { navController.popBackStack() },
                 onIrInicio = {
                     navController.navigate("home") { popUpTo("home") { inclusive = true } }
@@ -72,7 +87,11 @@ fun AppNavigation() {
                         popUpTo(0) { inclusive = true }
                     }
                 },
-                onVolver = { navController.popBackStack() }
+                onVolver = { navController.popBackStack() },
+                onIrInicio = {
+                    navController.navigate("home") { popUpTo("home") { inclusive = true } }
+                },
+                onMapa = { navController.navigate("mapa") { launchSingleTop = true } }
             )
         }
 
@@ -95,6 +114,7 @@ fun AppNavigation() {
                     navController.navigate("home") { popUpTo("home") { inclusive = true } }
                 },
                 onVolver = { navController.popBackStack() },
+                onMapa = { navController.navigate("mapa") { launchSingleTop = true } },
                 onCambiarLinea = { nuevaLineaId ->
                     navController.navigate("estaciones/$nuevaLineaId") {
                         popUpTo("home")

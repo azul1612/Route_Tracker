@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,7 +35,8 @@ import com.example.routetracker.presentation.common.coloresLinea
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
-    onLineaClick: (String) -> Unit = {}
+    onLineaClick: (String) -> Unit = {},
+    onMapaClick: () -> Unit = {}
 ) {
     val lineas by viewModel.lineas.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
@@ -61,6 +63,16 @@ fun HomeScreen(
                     color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold
                 )
             }
+        }
+
+        // --- ACCESO AL MAPA DE ESTACIONES ---
+        FilledTonalButton(
+            onClick = onMapaClick,
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 12.dp)
+        ) {
+            Icon(Icons.Default.Map, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text("Ver mapa de estaciones")
         }
 
         Row(

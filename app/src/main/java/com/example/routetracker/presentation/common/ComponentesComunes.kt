@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -34,7 +35,14 @@ val coloresLinea = mapOf(
 )
 
 @Composable
-fun MenuSuperior(onPerfil: () -> Unit, onInicio: () -> Unit, onAtras: () -> Unit) {
+fun MenuSuperior(
+    onPerfil: () -> Unit,
+    onInicio: () -> Unit,
+    onAtras: () -> Unit,
+    onMapa: (() -> Unit)? = null,
+    mapaActivo: Boolean = false,
+    perfilActivo: Boolean = false
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,13 +54,22 @@ fun MenuSuperior(onPerfil: () -> Unit, onInicio: () -> Unit, onAtras: () -> Unit
         Icon(
             Icons.Default.AccountCircle,
             contentDescription = "Perfil",
-            modifier = Modifier.size(32.dp).clickable { onPerfil() },
-            tint = Color(0xFFC1121F)
+            modifier = Modifier.size(32.dp).clickable(enabled = !perfilActivo) { onPerfil() },
+            tint = if (perfilActivo) Color.Gray else Color(0xFFC1121F)
         )
         TextButton(onClick = onInicio) {
             Icon(Icons.Default.Home, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color(0xFFC1121F))
             Spacer(Modifier.width(4.dp))
             Text("Inicio", color = Color(0xFFC1121F), fontWeight = FontWeight.Bold)
+        }
+        if (onMapa != null) {
+            // En la pantalla del mapa se muestra en gris (pantalla actual) y no es clickeable
+            val tonoMapa = if (mapaActivo) Color.Gray else Color(0xFFC1121F)
+            TextButton(onClick = onMapa, enabled = !mapaActivo) {
+                Icon(Icons.Default.Map, contentDescription = null, modifier = Modifier.size(18.dp), tint = tonoMapa)
+                Spacer(Modifier.width(4.dp))
+                Text("Mapa", color = tonoMapa, fontWeight = FontWeight.Bold)
+            }
         }
         TextButton(onClick = onAtras) {
             Text("Atrás")
